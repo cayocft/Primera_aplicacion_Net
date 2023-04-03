@@ -1,0 +1,35 @@
+//Para obtener información de la base de datos como colecciones en el proyecto
+linq2db -> Extensión desde NuGet
+Documentacion: https://github.com/linq2db/linq2db
+// Por el mometo no usar este linq2db
+
+//Usar Pomelo.EntityFrameworkCore.Mysql -> BSucarlo en Nuget
+Instalar: Microsft.EntityFrameworkCore.Tools
+
+AHora ir a la consola en herramientas -> administrador de paquetes -> Consola del Administrador de Paquetes.
+//agregar las instrucciones de conexion
+Antes de ejecutar el comando siguiente, debemos ir en nuestro proyecto a dependencias->paquetes y copiar el nombre de pomele
+Luego escribir en consola lo siguiente: Scaffold-DbContext "server=localhost; port=3306; database=primera_aplicacion; uid=root; password=;" Pomelo.EntityFrameworkCore.MySql -o Models
+
+// Ahora copiar la cadena de conexión (donde esta el warning) para dar seguridad a nuestra conexión.
+Esta creamos dentro del archivo "appsettings.json" 
+
+Ahora modificamos el archivo "program.cs" agregando la linea de código:
+builder.Services.AddDbContext<PrimeraAplicacionContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("ConexionDb"), Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.4.25-mariadb")));
+
+Comentar y agregar las intrucciones como meustra la imagen
+
+¨NOTA: Tener en cuenta de importar el UseMysql que se instalo (usar lo recomendado por visual)
+
+//Ahora en el poryecto dar click derecho en controlador-> agregar controlador -> Controlador der MVC con Vistas que usan Entity Framework y Agregar
+Y luego en el dialogo agregar el modelo que será afectado o que usará este controlador y el contexto de datos creado con el comando Scaffold
+
+Con esto se crea el CRUD de este modelo de forma automatica!
+
+Luego ingresamos al vista de usuario: Views->Usuarios->index.html
+
+Y agregamos las clases de bootstrap en los bototnes para mejroar las vistas que viene incorporada en una app de .net 
+class="btn btn-success"
+
+Referenciahttps://www.youtube.com/watch?v=1fJhAcPsVbE
